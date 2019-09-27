@@ -1,4 +1,6 @@
-# GuitarSniffer [![AbstruseCI](https://ci.artman41.xyz/badge/1)](https://ci.artman41.xyz/repo/1)
+# DrumSniffer - based on GuitarSniffer by artman41 found [here](https://github.com/artman41/guitarsniffer)
+
+# IN DEVELOPMENT - NOT YET RELEASED
 
 ## Installation
 
@@ -26,7 +28,7 @@
 
 ### Download the Application
 
-* Download the latest release from [here](https://github.com/artman41/guitarsniffer/releases/latest)
+* Download the latest release from [here](https://github.com/Dunkalunk/drumsniffer) once it is available
 
 ### DONE!
 
