@@ -6,16 +6,16 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/artman41/guitarsniffer/guitarjoypad"
-	"github.com/artman41/guitarsniffer/guitarpacket"
-	"github.com/artman41/guitarsniffer/guitarsniffer"
+	"github.com/dunkalunk/drumjoypad"
+	"github.com/dunkalunk/drumpacket"
+	"github.com/dunkalunk/drumsniffer"
 	"github.com/go-gl/gl/v2.1/gl"
 	"github.com/go-gl/glfw/v3.1/glfw"
 )
 
-var currentPacket = guitarpacket.GuitarPacket{}
+var currentPacket = drumpacket.DrumPacket{}
 var currentPacketHex = ""
-var guitarJoypad *guitarjoypad.GuitarJoypad
+var drumJoypad *drumjoypad.DrumJoypad
 var RunDataThread = true
 
 var threads sync.WaitGroup
@@ -83,16 +83,16 @@ func onKey(w *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods 
 
 func dataThread(runDataThread *bool) {
 	fmt.Println("Getting Joypad...")
-	joypad, err := guitarjoypad.GetJoypad()
+	joypad, err := drumjoypad.GetJoypad()
 	if err != nil {
 		panic(err)
 	}
-	guitarJoypad = joypad
+	drumJoypad = joypad
 	fmt.Println("Obtained!")
-	defer guitarJoypad.Relinquish()
+	defer drumJoypad.Relinquish()
 
 	fmt.Println("Starting Sniffer...")
-	sniffer, err := guitarsniffer.Start()
+	sniffer, err := drumsniffer.Start()
 	defer sniffer.Stop()
 	if err != nil {
 		panic(err)
@@ -107,15 +107,15 @@ func dataThread(runDataThread *bool) {
 	}
 }
 
-func handlePacket(packet *guitarsniffer.Packet) {
+func handlePacket(packet *drumsniffer.Packet) {
 	// The packet returned when pressing the Xbox button is 31
 	// bytes long, not 40, meaning that currently we're
 	// ignoring that it exists but the code is there for it
 	if packet.CaptureInfo.Length != 40 {
 		return
 	}
-	currentPacket = guitarpacket.CreateGuitarPacket(packet.Data[guitarpacket.XboxHeaderLength:])
-	currentPacketHex = hex.EncodeToString(packet.Data[guitarpacket.XboxHeaderLength:])
-	guitarJoypad.SetValues(currentPacket)
-	guitarJoypad.Update()
+	currentPacket = drumpacket.CreateGuitarPacket(packet.Data[drumpacket.XboxHeaderLength:])
+	currentPacketHex = hex.EncodeToString(packet.Data[drumpacket.XboxHeaderLength:])
+	drumJoypad.SetValues(currentPacket)
+	drumJoypad.Update()
 }

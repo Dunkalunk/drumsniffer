@@ -36,12 +36,12 @@ const (
 	PosLowerFret = 14
 )
 
-// CreateGuitarPacket returns a GuitarPacket struct
+// CreateGuitarPacket returns a DrumPacket struct
 // filled with the values of the given packet
 //
 // Note: the function assumes that the given packet
 // has already had the XboxHeader removed from it
-func CreateGuitarPacket(packet []byte) GuitarPacket {
+func CreateGuitarPacket(packet []byte) DrumPacket {
 	// fmt.Printf("(%d) %s\n", len(packet), hex.EncodeToString(packet))
 	upperFrets := getFrets(packet[PosUpperFret])
 	lowerFrets := getFrets(packet[PosLowerFret])
@@ -52,7 +52,7 @@ func CreateGuitarPacket(packet []byte) GuitarPacket {
 		Whammy: packet[PosWhammy],
 		Tilt:   packet[PosTilt],
 	}
-	return GuitarPacket{
+	return DrumPacket{
 		UpperFrets: upperFrets,
 		LowerFrets: lowerFrets,
 		Dpad:       dpad,
@@ -106,7 +106,7 @@ type Axes struct {
 	Tilt   byte
 }
 
-type GuitarPacket struct {
+type DrumPacket struct {
 	UpperFrets, LowerFrets Frets
 	Dpad                   Dpad
 	Buttons                Buttons

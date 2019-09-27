@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/dunkalunk/drumpacket"
 	"image"
 	"image/color"
 
-	"github.com/artman41/guitarsniffer/guitarpacket"
 	"github.com/go-gl/gl/v2.1/gl"
 	"github.com/golang/freetype/truetype"
 	"github.com/llgcode/draw2d"
@@ -85,7 +85,7 @@ func display(width, height int) {
 	gl.Flush() /* Single buffered, so needs a flush. */
 }
 
-func drawFretGroup(gc *draw2dgl.GraphicContext, frets *guitarpacket.Frets, x, y float64, str string) {
+func drawFretGroup(gc *draw2dgl.GraphicContext, frets *drumpacket.Frets, x, y float64, str string) {
 	fretXPos := func(baseX float64, i int) float64 {
 		return baseX + float64(i*15)
 	}
@@ -148,7 +148,7 @@ var (
 	dpadRight dpadDirection = 3
 )
 
-func drawDpad(gc *draw2dgl.GraphicContext, x, y float64, dpad *guitarpacket.Dpad) {
+func drawDpad(gc *draw2dgl.GraphicContext, x, y float64, dpad *drumpacket.Dpad) {
 	gc.SetFontData(draw2d.FontData{Name: "goregular"})
 	gc.SetFillColor(image.White)
 	gc.SetFontSize(10)
@@ -203,7 +203,7 @@ func drawDpadButton(gc *draw2dgl.GraphicContext, x, y float64, dir dpadDirection
 	gc.Fill()
 }
 
-func drawButtonGroup(gc *draw2dgl.GraphicContext, x, y float64, buttons *guitarpacket.Buttons) {
+func drawButtonGroup(gc *draw2dgl.GraphicContext, x, y float64, buttons *drumpacket.Buttons) {
 	gc.SetFontData(draw2d.FontData{Name: "goregular"})
 	gc.SetFillColor(image.White)
 	gc.SetFontSize(10)
@@ -234,7 +234,7 @@ func drawButton(gc *draw2dgl.GraphicContext, x, y float64, glbool *glBool) {
 	gc.Fill()
 }
 
-func drawAxesGroup(gc *draw2dgl.GraphicContext, x, y float64, axes *guitarpacket.Axes) {
+func drawAxesGroup(gc *draw2dgl.GraphicContext, x, y float64, axes *drumpacket.Axes) {
 	drawAxis(gc, x, y, float64((axes.Slider/16)+1)/5, "Slider")
 	drawAxis(gc, x, y+25, (float64(axes.Whammy) / 0xff), "Whammy")
 	drawAxis(gc, x, y+50, (float64(axes.Tilt) / 0xff), "Tilt")
