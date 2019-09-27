@@ -1,4 +1,4 @@
-package guitarsniffer
+package drumsniffer
 
 import (
 	"sync"

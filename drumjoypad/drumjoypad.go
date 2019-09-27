@@ -1,4 +1,4 @@
-package guitarjoypad
+package drumjoypad
 
 import (
 	"github.com/artman41/guitarsniffer/guitarpacket"

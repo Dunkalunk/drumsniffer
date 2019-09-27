@@ -1,4 +1,4 @@
-package guitarpacket
+package drumpacket
 
 const XboxHeaderLength = 22
 
